@@ -11,11 +11,13 @@
 #include <BRepBuilderAPI_MakeEdge.hxx>
 #include <BRepBuilderAPI_MakeFace.hxx>
 #include <BRepPrimAPI_MakeBox.hxx>
+#include <BRepPrimAPI_MakeSphere.hxx>
 #include <TopoDS_Vertex.hxx>
 #include <TopoDS_Edge.hxx>
 #include <TopoDS_Face.hxx>
 #include <TopoDS_Solid.hxx>
 #include <Geom_BezierCurve.hxx>
+#include <gp_Circ.hxx>
 #include "GeomWidget.h"
 #include "DocumentCommon.h"
 #include "ui_OCCT_Test.h"
@@ -46,4 +48,10 @@ private:
     void MakeAndShowBox();
     // 创建并显示曲线
     void MakeAndShowCurve();
+    // 创建并显示圆
+    void MakeAndShowCircle();
+    // 创建并显示球体
+    void MakeAndShowSphere();
+    // 创建并显示圆锥体
+    void MakeAndShowCone();
 };

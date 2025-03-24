@@ -2,6 +2,7 @@
 #include <QMdiArea>
 #include "MakeBottle.h"
 #include <TColgp_Array1OfPnt.hxx>
+#include <BRepPrimAPI_MakeCone.hxx>
 OCCT_Test::OCCT_Test(QWidget *parent)
     : QMainWindow(parent)
 {
@@ -16,7 +17,10 @@ OCCT_Test::OCCT_Test(QWidget *parent)
     //MakeAndShowLine();
     //MakeAndShowPlane();
     //MakeAndShowBox();
-    MakeAndShowCurve();
+    //MakeAndShowCurve();
+    //MakeAndShowCircle();
+    //MakeAndShowSphere();
+    MakeAndShowCone();
 }
 
 OCCT_Test::~OCCT_Test()
@@ -92,6 +96,42 @@ void OCCT_Test::MakeAndShowCurve()
     Handle(Geom_BezierCurve) aCurve = new Geom_BezierCurve(*aPnts, *aWights);
     TopoDS_Edge edge = BRepBuilderAPI_MakeEdge(aCurve);
     Handle(AIS_InteractiveObject) aShape = new AIS_Shape(edge);
+    myObject3d.Append(aShape);
+    Handle(AIS_ViewCube) aViewCube = new AIS_ViewCube();
+    myObject3d.Append(aViewCube);
+    myDocument3d->SetObjects(myObject3d);
+}
+
+void OCCT_Test::MakeAndShowCircle()
+{
+    gp_Ax2 ax = gp_Ax2(gp_Pnt(0, 0, 0), gp_Dir(0, 0, 1));
+    gp_Circ circle(ax, 100);
+    TopoDS_Edge edge = BRepBuilderAPI_MakeEdge(circle);
+    Handle(AIS_InteractiveObject) aShape = new AIS_Shape(edge);
+    myObject3d.Append(aShape);
+    Handle(AIS_ViewCube) aViewCube = new AIS_ViewCube();
+    myObject3d.Append(aViewCube);
+    myDocument3d->SetObjects(myObject3d);
+
+}
+
+void OCCT_Test::MakeAndShowSphere()
+{
+    gp_Pnt center(0, 0, 0);
+    TopoDS_Shape sphere = BRepPrimAPI_MakeSphere(center, 100);
+    Handle(AIS_InteractiveObject) aShape = new AIS_Shape(sphere);
+    myObject3d.Append(aShape);
+    Handle(AIS_ViewCube) aViewCube = new AIS_ViewCube();
+    myObject3d.Append(aViewCube);
+    myDocument3d->SetObjects(myObject3d);
+
+}
+
+void OCCT_Test::MakeAndShowCone()
+{
+    Standard_Real R1 = 100, R2 = 0, H = 100;
+    TopoDS_Solid S = BRepPrimAPI_MakeCone(R1, R2, H);
+    Handle(AIS_InteractiveObject) aShape = new AIS_Shape(S);
     myObject3d.Append(aShape);
     Handle(AIS_ViewCube) aViewCube = new AIS_ViewCube();
     myObject3d.Append(aViewCube);
