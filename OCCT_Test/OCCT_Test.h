@@ -37,6 +37,8 @@ private:
     DocumentCommon* myDocument3d;
     DocumentCommon* myDocument2d;
     NCollection_Vector<Handle(AIS_InteractiveObject)> myObject3d;
+    TopoDS_Shape myShape;
+    // 定义拓扑图形集合
 private:
     // 创建并显示顶点
     void MakeAndShowPoint();
@@ -54,4 +56,14 @@ private:
     void MakeAndShowSphere();
     // 创建并显示圆锥体
     void MakeAndShowCone();
+    // 创建并显示圆柱体
+    void MakeAndShowCylinder();
+    // 创建并显示圆环
+    void MakeAndShowTorus();
+
+protected slots:
+    // 保存为STEP文件
+    void on_save_to_step();
+    // 打开STEP文件
+    void on_open_step();
 };
